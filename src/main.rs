@@ -11,5 +11,5 @@ async fn main() -> std::io::Result<()> {
 }
 
 async fn health_check() -> impl Responder {
-    HttpResponse::Ok().content_type(ContentType::html()).body("OK, Hello world".to_string())
+    HttpResponse::Ok().content_type(ContentType::html()).body("OK, Hello world!!!".to_string())
 }
