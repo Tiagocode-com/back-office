@@ -8,18 +8,23 @@ LABEL org.opencontainers.image.source="https://github.com/tiagocodecom/back-offi
 
 ARG RUST_APP_PORT=8080
 
-WORKDIR /app
+WORKDIR /var/www/app
 
 RUN apk update && \
-    apk add musl-dev && \
-    apk add openssl && \
-    apk add curl && \
-    apk add bash && \
-    apk add git 
+    apk add --no-cache musl-dev && \
+    apk add --no-cache  \
+        openssl  \
+        openssh \
+        curl  \
+        bash  \
+        git \
+        unzip \
+        zsh
 
 RUN curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
 
-RUN cargo binstall -y cargo-watch
+RUN cargo binstall -y cargo-watch && \
+    cargo binstall -y sqlx-cli
 
 COPY . .
 
@@ -28,4 +33,3 @@ EXPOSE $RUST_APP_PORT
 ENV PORT $RUST_APP_PORT
 
 CMD ["cargo", "watch", "-x", "run"]
-
