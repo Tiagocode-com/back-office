@@ -8,7 +8,7 @@ LABEL org.opencontainers.image.source="https://github.com/tiagocodecom/back-offi
 
 ARG RUST_APP_PORT=8080
 
-WORKDIR /var/www/app
+WORKDIR /tmp/app
 
 RUN apk update && \
     apk add --no-cache musl-dev && \
